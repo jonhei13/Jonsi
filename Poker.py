@@ -1,6 +1,13 @@
 from itertools import *
 
 def rank_hand(s):
+    S = '23456789TJQKA'
+    P = []
+    for i in S:
+        P.append((i,i))
+    T = []
+    for i in S:
+        T.append((i,i,i))
     C = '2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 T T T T J J J J Q Q Q Q K K K K A A A A'
     Ca = C.split(" ")
     S = 'H S D C'
@@ -8,17 +15,29 @@ def rank_hand(s):
     newS = sorted(s)
 
 
+    def Straight(newS):
+        new = []
+
+    def Three(newS):
+        new = []
+        for x in newS:
+            new.append(x[0])
+        Mas = list(tuple(permutations(new, 3)))
+        Mas = list(set(Mas))
+        loc3 = [(x,y) for x in T for y in Mas if x == y]
+        if len(loc3) == 1:
+            return 3
+        return 0
+
     def Two_Pair(newS):
         new = []
         for x in newS:
             new.append(x[0])
-        Ma = list(set(permutations(new, 4)))
-        Mas = list(set(permutations(Ca, 4)))
-        loc3 = [(x,y) for x in Mas for y in Ma if x == y]
-        for x in Ma:
-            for i in loc3:
-                if x == i[0]:
-                    return 2
+        Mas = list(tuple(permutations(new, 2)))
+        Mas = list(set(Mas))
+        loc3 = [(x,y) for x in P for y in Mas if x == y]
+        if len(loc3) == 2:
+            return 2
         return 0
 
     def One_Pair(newS):
@@ -33,8 +52,8 @@ def rank_hand(s):
         return 0
 
 
-    Li = Two_Pair(newS)
+    Li = Three(newS)
     return Li
 
 
-print(rank_hand([ '8D', '2H', '4C', '2S', 'QH' ]))
+print(rank_hand([ '4D', 'QH', '4C', 'QS', 'QH' ]))
