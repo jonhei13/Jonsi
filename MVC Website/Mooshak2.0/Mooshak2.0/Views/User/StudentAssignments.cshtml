@@ -1,0 +1,60 @@
+﻿@model Mooshak2._0.Models.ViewModels.AssignmentViewModel
+
+
+@{
+    ViewBag.Title = "StudentAssignments";
+}
+<div class="main-view">
+    @Html.Partial("UserMain", Model.UserModel)
+
+    <div class="col-sm-8 col-md-10 middle">
+        <div class="main-content">
+            <h2>@Model.Name</h2>
+
+            @if (User.IsInRole("Teachers"))
+            {
+                @Html.ActionLink("Edit Assignment", "EditAssignment", "Assignment", new { AssignmentID = Model.ID }, new { @class = "Milestones btn btn-default" })
+            }
+
+            <h4>Due Date: @Model.DueDate</h4>
+
+            @if (Model.UserDataLinks != null)
+            {
+                <h3>Assignment Files</h3>
+                <ul class="list-unstyled">
+                    @foreach (var file in Model.UserDataLinks)
+                    {
+                        <li>
+                            <a href="@file">@file.Split('\\').LastOrDefault()</a>
+                        </li>
+
+                    }
+                </ul>
+            }
+            <h3>Milestones</h3>
+            <table class="overall-column table table-striped border-table">
+                
+                <tbody>
+                    @foreach (var milestone in Model.Milestones)
+                    {
+
+                        <tr>
+                            <td class="table-left">@milestone.Name</td>
+                            <td>@Html.ActionLink("View", "StudentMilestones", "User", new { id = milestone.ID }, new { @class = "btn" })</td>
+                        </tr>
+
+                    }
+                    @if(User.IsInRole("Teachers"))
+                    {
+                        <tr>
+                            <td>Create New Milestone</td>
+                            <td><a href="@Url.Action("CreateMilestone", "Assignment", new { AssignmentID = Model.ID, CourseID = Model.CourseID }, null)"><i class="glyphicon glyphicon-plus"></i></a> </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

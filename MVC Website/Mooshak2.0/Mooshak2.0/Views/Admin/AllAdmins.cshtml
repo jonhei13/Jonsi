@@ -1,0 +1,47 @@
+﻿@model Mooshak2._0.Models.ViewModels.AdminHomeViewModel
+
+@{
+    ViewBag.Title = "AllAdmins";
+}
+
+@Html.Partial("AdminMain")
+<div class="col-sm-8 col-md-10 middle">
+    <div class="container">
+        <h2>Admins</h2>
+        <br />
+        @using (Html.BeginForm("AllAdmins", "Admin", FormMethod.Get))
+        {
+            <label for="SearchString">Search</label>
+            @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        }
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var user in Model.Users)
+            {
+                if (user.Role == "Administrators")
+                {
+                    <tbody>
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@user.Role</td>
+                            <td>
+                                @Html.ActionLink(" ", "EditUser", new { UserID = user.ID }, new { @class = "btn btn-default glyphicon glyphicon-pencil" })
+                                @Html.ActionLink(" ", "DeleteUser", new { UserID = user.ID, }, new { @class = "btn btn-danger glyphicon glyphicon-trash ", @onclick = "return confirm('Are you sure you wish to delete?');" })
+                            </td>
+                    </tbody>
+                }
+            }
+        </table>
+    </div>
+</div>
+
+
+

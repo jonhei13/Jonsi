@@ -1,0 +1,21 @@
+﻿@model Mooshak2._0.Models.ViewModels.MilestoneViewModel
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<div class="main-view">
+    @if(User.IsInRole("Students")|| User.IsInRole("Teachers")) 
+    {
+        @Html.Partial("~/Views/User/UserMain.cshtml", Model.UserModel);
+    }
+    @if (User.IsInRole("Administrators"))
+    {
+        @Html.Partial("~/Views/Admin/AdminMain.cshtml")
+    }
+    <div class="col-sm-9 col-md-10">
+        <h1 class="text-danger">Error</h1>
+        <h2 class="text-danger">The requested url was not found!</h2>
+        <img src='@Url.Content( "~/img/notfound.jpg" )' />
+    </div>
+</div>

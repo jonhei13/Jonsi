@@ -1,0 +1,47 @@
+﻿@model Mooshak2._0.Models.ViewModels.UserHomeViewModel
+
+<div class="main-view">
+
+    @Html.Partial("UserMain")
+
+    <div class="col-sm-7 col-md-8 middle">
+        <div class="main-content">
+            <h2>Home</h2>
+            <h3>Welcome to Mooshak 2.0</h3>
+            <p>Welcome @User.Identity.Name.Split('@').FirstOrDefault()</p>
+        </div>
+        <div class="nextAssignments">
+            <table class="table-hover overall-column table table-striped border-table">
+                <thead>
+                    <tr>
+                        <th>Next Assignments</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model.Assignments != null)
+                    {
+                        foreach (var assignment in Model.Assignments)
+                        {
+                            var Start = assignment.StartDate;
+                            var Due = assignment.DueDate;
+                            var Now = DateTime.Now;
+                            if (Start < Now && Due > Now)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink(assignment.Name, "StudentAssignments", "User", new { id = assignment.ID }, null)</td>
+                                    <td>@Start</td>
+                                    <td>@Due</td>
+                                    <td>@Html.ActionLink("Edit", "EditAssignment", "Assignment", new { AssignmentID = assignment.ID }, null)</td>
+                                </tr>
+                            }
+                        }
+                    }
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

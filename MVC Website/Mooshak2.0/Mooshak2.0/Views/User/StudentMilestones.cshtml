@@ -1,0 +1,286 @@
+﻿@model Mooshak2._0.Models.ViewModels.MilestoneViewModel
+@{
+    ViewBag.Title = "StudentMilestones";
+}
+<div class="main-view">
+
+
+    @Html.Partial("UserMain", Model.UserModel)
+
+    <div class="col-sm-8 col-md-10 middle">
+        <h2> @Model.Name </h2>
+
+        @if (User.IsInRole("Students"))
+        {
+            using (Html.BeginForm("StudentSubmit", "Assignment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(model => model.SubmissionID)
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.AssignmentID)
+                @Html.HiddenFor(model => model.CourseID)
+                @Html.HiddenFor(model => model.Name)
+                @Html.HiddenFor(model => model.UserModel.Name)
+                @Html.HiddenFor(model => model.Input)
+                @Html.HiddenFor(model => model.Output)
+                @Html.HiddenFor(model => model.DrMemory)
+                <div class="col-sm-8 col-md-10">
+                    <div class="grade-content">
+                        <label for="zip">Upload a .zip file to submit a solution</label>
+                        <input type="file" name="ZipFile" id="zip" class="ChooseFile"/>
+                    </div>
+                    <input type="submit" value="Submit" class="btn" />
+                </div>
+            }
+        }
+        @if (User.IsInRole("Teachers"))
+        {
+            @Html.ActionLink("Edit Milestone", "EditMilestone", "Assignment", new { MilestoneID = Model.ID }, new { @class = "btn btn-default" })
+
+            if (Model.UserDataLinks != null)
+            {
+                <p>Teacher only files</p>
+                <ul class="list-unstyled">
+                    @foreach (var m in Model.UserDataLinks)
+                    {
+                        <li><a href="@m">@m.Split('\\').LastOrDefault()</a></li>
+                    }
+                </ul>
+            }
+
+        }
+        @if (User.IsInRole("Students"))
+        {
+            <div class="col-sm-7 col-md-8 submissions">
+                <h4>Description:</h4>
+                <h5>@Model.Description</h5>
+                <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                    <li class="active">
+                        <a href="#sub" role="tab" data-toggle="tab">Submissions</a>
+                    </li>
+                    <li>
+                        <a href="#out" role="tab" data-toggle="tab">Output</a>
+                    </li>
+                    <li>
+                        <a href="#mem" role="tab" data-toggle="tab">Memory</a>
+                    </li>
+                    <li>
+                        <a href="#grad" role="tab" data-toggle="tab">Comments</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="sub">
+                        @{int i = 1;}
+                        <table class="table-hover overall-column">
+                            <tbody class="border-table">
+                                @foreach (var submissions in Model.UserModel.Submissions)
+                                {
+                                    if (submissions.MilestoneID == Model.ID)
+                                    {
+
+                                        <tr>
+                                            @if (Model.SubmissionID == submissions.ID)
+                                            {
+                                                <td class="boldIt">Submission @i</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Submission @i</td>
+                                            }
+                                            @{i++;}
+                                            @if (submissions.Comment != null)
+                                            {
+                                                <td><i class="glyphicon glyphicon-envelope"></i></td>
+                                            }
+                                            else
+                                            {
+                                                <td>  </td>
+                                            }
+                                            @if (submissions.Status)
+                                            {
+                                                <td>
+                                                    @Html.ActionLink("Accepted", "StudentMilestones", "User", new { MilestoneID = Model.ID, SubID = submissions.ID }, new { @class = "btn buttonSize" })
+                                                </td>
+                                            }
+                                            else if (submissions.Output != Model.Output && submissions.DrMemory.Contains("NO ERRORS FOUND:"))
+                                            {
+                                                <td>
+                                                    @Html.ActionLink("Wrong Answer", "StudentMilestones", "User", new { MilestoneID = Model.ID, SubID = submissions.ID }, new { @class = "btn wrongButton buttonSize" })
+                                                </td>
+                                            }
+                                            else if (!submissions.DrMemory.Contains("NO ERRORS FOUND:"))
+                                            {
+                                                <td>
+                                                    @Html.ActionLink("Memory Error", "StudentMilestones", "User", new { MilestoneID = Model.ID, SubID = submissions.ID }, new { @class = "btn wrongButton buttonSize" })
+                                                </td>
+                                            }
+                                            <td>
+                                                <a href="@submissions.FilePath"><i class="glyphicon glyphicon-save"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                    }
+                                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="out">
+                        @{
+                            string TheSubmission = null;
+                            try
+                            {
+                                TheSubmission = Model.UserModel.Submissions.FirstOrDefault(x => x.ID == Model.SubmissionID).Output;
+                            }
+                            catch { }
+                            if (TheSubmission != null)
+                            {
+                                List<string> CorrectOutput = new List<string>(
+                                                            Model.Output.Split(new string[] { "\n" },
+                                                            StringSplitOptions.RemoveEmptyEntries));
+                                List<string> SubOutput = new List<string>(
+                                                            TheSubmission.Split(new string[] { "\n" },
+                                                            StringSplitOptions.RemoveEmptyEntries));
+                                int z = 0;
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Obtained Output</th>
+                                            <th>Expected Output</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="border-table">
+                                        @for (; z < SubOutput.Count(); z++)
+                                        {
+                                            if (CorrectOutput.Count() == z)
+                                            {
+                                                break;
+                                            }
+                                            <tr>
+                                                @if (SubOutput[z] == CorrectOutput[z])
+                                                {
+                                                    <td class="CorrectOut">@SubOutput[z]</td>
+                                                    <td>@CorrectOutput[z]</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="WrongOut">@SubOutput[z]</td>
+                                                    <td>@CorrectOutput[z]</td>
+                                                }
+                                            </tr>
+                                        }
+                                        @for (; z < CorrectOutput.Count(); z++)
+                                        {
+                                            <tr>
+                                                <td class="WrongOut">--Missing--</td>
+                                                <td>@CorrectOutput[z]</td>
+                                            </tr>
+                                        }
+                                        @for (; z < SubOutput.Count(); z++)
+                                        {
+                                            <tr>
+                                                <td class="WrongOut">@SubOutput[z]</td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        }
+                    </div>
+                    <div class="tab-pane" id="mem">
+                        @{
+                            string DrMemory = null;
+                            try
+                            {
+                                DrMemory = Model.UserModel.Submissions.FirstOrDefault(x => x.ID == Model.SubmissionID).DrMemory;
+                            }
+                            catch
+                            {
+
+                            }
+                            if (DrMemory != null)
+                            {
+                                List<string> DrMem = new List<string>(
+                                                DrMemory.Split(new string[] { "\n" },
+                                                StringSplitOptions.RemoveEmptyEntries));
+                                <p>
+                                    @foreach (var m in DrMem)
+                                    {
+                                        @m <br />
+                                    }
+                                </p>
+                            }
+                        }
+                    </div>
+                    <div class="tab-pane" id="grad">
+                        @{
+                            string TheComment = null;
+                            double TheGrade = 0;
+                            try
+                            {
+                                TheComment = Model.UserModel.Submissions.FirstOrDefault(x => x.ID == Model.SubmissionID).Comment;
+                                TheGrade = Model.UserModel.Submissions.FirstOrDefault(x => x.ID == Model.SubmissionID).Grade;
+                            }
+                            catch
+                            {
+
+                            }
+                            if ( TheComment != null)
+                            {
+                                <h4>Grade: @TheGrade</h4>
+                                <h5>Comments: @TheComment</h5>
+                            }
+                            else
+                            {
+                                <h4>Not graded yet</h4>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+                            }
+        @if (User.IsInRole("Teachers"))
+        {
+            <table class="table-hover overall-column table table-striped border-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Download</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.Users)
+                    {
+                        foreach (var submission in Model.Submissions)
+                        {
+                            if (submission.UserName == student.UserName && submission.ToSubmit)
+                            {
+                                <tr>
+                                    <td>@student.UserName</td>
+                                    @{
+                                        string url = "\\userdata\\" + @student.ID + "\\" + @submission.AssignmentID + "\\" + @submission.MilestoneID + "\\" + @submission.FilePath;
+                                    }
+                                    <td><a href="@submission.FilePath"><i class="glyphicon glyphicon-save"></i></a></td>
+                                    <td>
+                                        @if (submission.Comment != null)
+                                        {
+                                            <a href="@Url.Action("TeacherComment", "User", new { subID = submission.ID }, null)"><i class="glyphicon glyphicon-check"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("TeacherComment", "User", new { subID = submission.ID }, null)"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+         }
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@model Mooshak2._0.Models.ViewModels.UserHomeViewModel
+@{
+    ViewBag.Title = "StudentHome";
+}
+<div class="main-view">
+
+    @Html.Partial("UserMain")
+
+    <div class="col-sm-7 col-md-8 middle">
+        <div class="main-content">
+            <h2>Home</h2>
+            <h3>Welcome to Mooshak 2.0</h3>
+            <p>Welcome @User.Identity.Name.Split('@').FirstOrDefault()</p>
+        </div>
+        <div class="nextAssignments">
+            <table class="overall-column table-striped border-table">
+                <thead class="AssignmentsBox">
+                    <tr>
+                        <th>Next Assignments</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody class="assignments">
+                    @if (Model.Assignments != null)
+                    {
+                        foreach (var assignment in Model.Assignments)
+                        {
+                            var Start = assignment.StartDate;
+                            var Due = assignment.DueDate;
+                            var Now = DateTime.Now;
+                            if (Start < Now && Due > Now)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink(assignment.Name, "StudentAssignments", "User", new { id = assignment.ID }, null)</td>
+                                    <td>@assignment.DueDate</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-1 col-md-2 secondSidebar">
+        <h3>Grades</h3>
+        <table class="table table-striped border-table">
+            <thead class="AssignmentsBox">
+                <tr>
+                    <th>Assignment</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody class="assignments">
+                @if (Model.Assignments != null)
+                {
+                    foreach (var assignments in Model.Assignments)
+                    {
+                        var Start = assignments.StartDate;
+                        var Now = DateTime.Now;
+                        if (Start < Now)
+                        {
+                            <tr>
+                                <td>@assignments.Name</td>
+                                <td>@assignments.Grade</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="averageGrade">
+            @if (Model.Assignments != null)
+            {
+                var Count = 0;
+                var AverageGrade = 0.0;
+                foreach (var assignment in Model.Assignments)
+                {
+                    var Due = assignment.DueDate;
+                    var Now = DateTime.Now;
+                    if (Due < Now)
+                    {
+                        AverageGrade += assignment.Grade;
+                        Count++;
+                    }
+                }
+                AverageGrade = AverageGrade / Count;
+                <h4 id="averageGrade">Average Grade: @AverageGrade</h4>
+            }
+        </div>
+
+    </div>
+</div>

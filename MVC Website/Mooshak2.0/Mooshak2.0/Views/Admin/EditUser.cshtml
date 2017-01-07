@@ -1,0 +1,50 @@
+﻿@model Mooshak2._0.Models.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "EditUser";
+}
+
+@Html.Partial("AdminMain")
+<div class="col-sm-8 col-md-10 middle">
+    <h2>Edit user</h2>
+
+    @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName)
+                <input type="submit" class="btn btn-default" value="Update" />
+            </div>
+        </div>
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var Course in Model.Courses)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@Course.Name</td>
+                                <td>@Html.ActionLink("Remove from course", "RemoveCourseFromUser", new { Name = Model.UserName, CourseID = Course.ID }, new { @class = "btn btn-danger" })</td>
+                            </tr>
+                        </tbody> 
+                    }
+                </table>
+            </div>
+
+    }
+
+</div>
+
+

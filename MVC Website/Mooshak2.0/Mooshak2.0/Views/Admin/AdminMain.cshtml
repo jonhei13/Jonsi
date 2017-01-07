@@ -1,0 +1,12 @@
+﻿@*@model Mooshak2._0.Models.ViewModels.AdminHomeViewModel *@
+
+<div class="col-sm-1 col-md-2 sidebar">
+    <ul class="nav ulBar">
+        <li>@Html.ActionLink("Create new user", "CreateUser","Admin")</li>
+        <li>@Html.ActionLink("Create new course", "CreateCourse", "Admin")</li>
+        <li>@Html.ActionLink("Students", "AllStudents", "Admin")</li>
+        <li>@Html.ActionLink("Teachers", "AllTeachers", "Admin")</li>
+        <li>@Html.ActionLink("Admins", "AllAdmins", "Admin")</li>
+        <li>@Html.ActionLink("Courses", "AllCourses", "Admin")</li>
+    </ul>
+</div>

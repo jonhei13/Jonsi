@@ -1,0 +1,67 @@
+﻿@model Mooshak2._0.Models.ViewModels.UserHomeViewModel
+
+<div class="col-sm-1 col-md-2 sidebar">
+    <div class="dropdown">
+        <button class="btn selected">@Model.CourseName<i class="glyphicon glyphicon-menu-down"></i></button>
+        <div class="dropdown-content">
+                @if (User.IsInRole("Students"))
+                {
+                    foreach (var course in Model.Courses)
+                    {
+                        @Html.ActionLink(course.Name, "StudentHome", "User", new { id = course.ID }, null);
+                    }
+                }
+                else
+                {
+                    foreach (var course in Model.Courses)
+                    {
+                        @Html.ActionLink(course.Name, "TeacherHome", "User", new { id = course.ID }, null);
+                    }
+                }
+        </div>
+    </div>
+    <ul class="nav ulBar">
+        <div class="AssignmentsBox">
+            <h4>Assignments</h4>
+        </div>
+        @if (Model.Assignments != null)
+        {
+            foreach (var assignment in Model.Assignments)
+            {
+            <li>
+                @if ((assignment.StartDate <= DateTime.Now  && assignment.Hidden == false)|| User.IsInRole("Teachers"))
+                {
+                    @Html.ActionLink(assignment.Name, "StudentAssignments", "User", new { id = assignment.ID }, new { @class = "assignments" })
+                    <ul class="milestones">
+                            @foreach (var milestone in assignment.Milestones)
+                            {
+                                
+                                if (milestone.AssignmentID == Model.AssignmentID)
+                                {
+                                    <li>
+                                        @Html.ActionLink(milestone.Name, "StudentMilestones", "User", new { id = milestone.ID }, new { @class="milestone"})
+                                    </li>
+                                    
+                                }
+
+                            }
+                        @if (User.IsInRole("Teachers") && assignment.ID == Model.AssignmentID)
+                        {
+                            <li>
+                                @Html.ActionLink("New Milestone ", "CreateMilestone", "Assignment", new { AssignmentID = assignment.ID, CourseID = assignment.CourseID }, new { @class = "milestone" })<i class="glyphicon glyphicon-plus smallicon"></i>
+                            </li>
+                        }                       
+                    </ul>
+                }
+            </li>
+            }
+        }
+
+        @if (User.IsInRole("Teachers") && Model.Courses.Count() > 0)
+        {
+            <li>
+                <a href="@Url.Action("CreateAssignment", "Assignment", new { CourseID = Model.CourseID }, null)" class="assignments">New Assignment <i class="glyphicon glyphicon-plus smallicon"></i></a>
+            </li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,42 @@
+﻿@model Mooshak2._0.Models.ViewModels.AdminHomeViewModel
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+@Html.Partial("AdminMain")
+<div class="col-sm-8 col-md-10 middle">
+    <div class="container">
+        <h2>Courses</h2>
+        <br />
+        @using (Html.BeginForm("AllCourses", "Admin", FormMethod.Get))
+        {
+            <label for="SearchString">Search</label>
+            @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        }
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var Course in Model.Courses)
+            {
+                <tr>
+                    <td>@Course.Name</td>
+                    <td>
+                        @Html.ActionLink(" ", "EditCourse", "Admin", new { CourseID = Course.ID, id = "history-back" }, new { @class = "btn btn-default glyphicon glyphicon-pencil" })
+                        @Html.ActionLink("ViewUsers", "UsersInCourse", "Admin", new { CourseID = Course.ID }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Link Users To Another Course", "LinkAllUsersInCourseToAnother", "Admin", new { CourseID = Course.ID }, new { @class = "btn btn-default" })
+                        @Html.ActionLink(" ", "DeleteCourse", "Admin", new { CourseID = Course.ID }, new { @class = "btn btn-danger glyphicon glyphicon-trash", @onclick = "return confirm('Are you sure you wish to delete?');" })
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

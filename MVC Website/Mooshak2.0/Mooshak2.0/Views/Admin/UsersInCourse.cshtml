@@ -1,0 +1,37 @@
+﻿@model Mooshak2._0.Models.ViewModels.AdminHomeViewModel
+@{
+    ViewBag.Title = "UsersInCourse";
+}
+
+@Html.Partial("AdminMain")
+
+<h2>Users In @Model.CourseName</h2>
+
+<div class="col-sm-8 col-md-10 middle">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.CourseID)
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var user in Model.Users)
+            {
+                <tbody>
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Role</td>
+                        <td>
+                           @Html.ActionLink(" ", "EditUser", "Admin", new { UserID = user.ID, }, new { @class = "btn btn-default glyphicon glyphicon-pencil" })
+                           @Html.ActionLink(" ", "DeleteUser", "Admin", new { UserID = user.ID, CourseID = Model.CourseID }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                           @Html.ActionLink("Remove From Course", "RemoveCourseFromUser", "Admin", new {Name = user.UserName, CourseID = Model.CourseID }, new { @class = "btn btn-danger" })
+                        </td>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>

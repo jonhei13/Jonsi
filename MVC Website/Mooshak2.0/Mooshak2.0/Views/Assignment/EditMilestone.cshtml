@@ -1,0 +1,93 @@
+﻿@model Mooshak2._0.Models.ViewModels.MilestoneViewModel
+
+@{
+    ViewBag.Title = "EditMilestone";
+}
+<div class="main-view">   
+
+    @Html.Partial("~/Views/User/UserMain.cshtml", Model.UserModel)
+
+    <div class="col-sm-9 col-md-10">
+        <h2>Edit @Model.Name</h2>
+        @using (Html.BeginForm("EditMilestone", "Assignment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.AssignmentID)
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.CourseID)
+                @Html.HiddenFor(model => model.UserModel.Name)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { @class = "descriptionWindow" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Input, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Input, new { @class = "IOTextarea", @readonly = "reeadonly" })
+                        @Html.ValidationMessageFor(model => model.Input, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Output, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Output, new { @class = "IOTextarea", @readonly = "reeadonly"})
+                        @Html.ValidationMessageFor(model => model.Output, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Percent, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Percent, new { htmlAttributes = new { @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model.Percent, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if (ViewBag.Output != null)
+                {
+                    <ul>
+                        @ViewBag.Output
+                    </ul>
+                }
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="zip">Upload new ZIP if you want to edit your program</label>
+                        <input type="file" name="ZipFile" id="zip" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <label for="file">Change input by uploading new TXT file</label>
+                        <input type="file" name="TxtFile" id="file" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Update" class="btn btn-default" />
+                        @Html.ActionLink("Delete", "DeleteMilestone", "Assignment", new { MileID = Model.ID, CourseID = Model.CourseID }, new { @class = "btn btn-default", @onclick = "return confirm('Are you sure you wish to delete?');" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,488 @@
+﻿/*Main CSS*/
+
+body 
+{
+    background: white;
+    font-family: Arial;
+    height: 100%;
+}
+
+h2
+{
+    font-size: xx-large;
+}
+
+footer 
+{
+    position: fixed;
+    bottom: 0;
+}
+
+#loginForm
+{
+    border: 0.5px, gray;
+}
+
+.main-content 
+{
+    float:left;
+    margin-top: 5px;
+    margin-bottom: 200px;
+    height: 100%;
+    width: 100%;
+}
+
+.main-view
+{
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.middle
+{
+    margin-top: 2px;
+    float: left; 
+    padding-bottom: 200px;
+    width: 60%;
+}
+
+.submissions
+{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.inline
+{
+    display: inline;
+}
+
+
+/*Average Grade*/
+
+.averageGrade
+{
+    position: relative;
+}
+
+#averageGrade
+{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+/*Next Assignments*/
+
+.nextAssignments
+{
+    width: 100%;
+}
+
+.teacher-next
+{
+    float: left;
+}
+
+
+/*Table Data*/
+
+td
+{
+    font-size: 16px;
+    padding: 5px; 
+}
+
+th
+{
+    font-size: 18px;
+    padding: 5px;
+}
+
+.overall-column
+{
+    width: 100%
+}
+
+.border-table
+{
+    border: 1px solid lightgray;
+    border-radius: 25px;
+}
+
+
+/*Icons*/
+
+.smallicon
+{
+    font-size: 10px;
+    color: #808080;
+}
+
+.logOutIcon
+{
+    font-size: 12px;
+}
+
+.logoSize
+{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.loginButtons
+{
+    font-size: 16px;
+}
+
+
+/*DropDown*/
+
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border: 1px solid gray;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    background-image: linear-gradient(to bottom, #e0e0e0, gray);
+    display: block;
+    border-radius: 10px;
+}
+
+
+/*Buttons*/
+.btn 
+{
+    background: #11ba3e;
+    background-image: linear-gradient(to bottom, #11ba3e, #15db3d);
+    border-radius: 9px;
+    text-shadow: 1px 1px 3px #666666;
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    border: solid #1eb31e 2px;
+    text-decoration: none;
+}
+
+.selected
+{
+    border-bottom-left-radius: 0px;
+    width:inherit;
+}
+
+.btn:hover 
+{
+    background: #15db3d;
+    background-image: linear-gradient(to bottom, #15db3d, #11ba3e);
+    text-decoration: none;
+    color: white;
+}
+
+.btn:focus
+{
+    color: white;
+}
+
+.btn-danger
+{
+    background: #d93434;
+    background-image: linear-gradient(to bottom, #d93434, #780000);
+    border: solid #b50000 2px;
+}
+
+.btn-danger:hover
+{
+    background: #cc0000;
+    background-image: linear-gradient(to bottom, #780000, #d93434);
+
+}
+
+
+/*Sidebar*/
+
+.sidebar
+{
+    margin-top: 30px;
+    float: left;
+    height: 100%;
+}
+
+.secondSidebar
+{
+    float: left;
+    height: 100%;
+    margin-top: 15px;
+}
+
+.assignment-view
+{
+    margin: 0px 0px;
+}
+
+.table-left
+{
+    padding: 0px 200px 0px 0px;
+}
+
+.ulBar
+{
+    margin-top: 10px;
+    box-shadow: 0px 0px 12px 1px rgba(130,126,130,0.53);
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.AssignmentsBox
+{
+    border-radius: 7px;
+    background-image: linear-gradient(#000000, #bab9b8);
+    background-clip: padding-box;
+    color: white;
+    padding: 1px 5px 1px 5px;
+    font-weight: bold;
+    margin: 2px;
+    font-family: Arial;
+    color: white;
+
+}
+
+.AssignmentsBox > h4
+{
+    font-size: 15px;
+}
+
+.assignments
+{
+    border-radius: 7px;
+    background-color: white;
+    background-clip: padding-box;
+    color: black;
+    margin: 1px 1px 1px 1px;
+    font-size: 14px;
+}
+
+.milestones
+{
+    list-style-type: disc;
+    color: #11ba3e;
+}
+
+.milestone
+{
+    color: black;
+}
+
+a.assignments:hover
+{
+    background-image: linear-gradient(to bottom, #11ba3e, #15db3d);
+    color: white;
+}
+
+.assignmentsjs
+{
+    background-image: linear-gradient(to bottom, #11ba3e, #15db3d);
+    color: white;
+    border-radius: 7px;
+    background-clip: padding-box;
+    margin: 1px 1px 1px 1px;
+    font-size: 14px;
+}
+
+
+.nav > li > a
+{
+    padding: 10px 5px;
+}
+
+
+/*Milestone CSS*/
+
+.descriptionWindow
+{
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
+.IOTextarea
+{
+    width: 100%;
+    resize: vertical;
+    height: 100px;
+}
+
+.CorrectOut
+{
+    background-color: #5cb85c;
+}
+
+.WrongOut
+{
+    background-color: #d9534f;
+}
+
+/*Navbar*/
+
+.grad
+{
+    background: linear-gradient(black, gray);
+}
+
+.navSize
+{
+    height: 55px;
+}
+
+.navbar-brand
+{
+    height: 55px;
+}
+
+.navbar-right
+{
+    height: 55px;
+}
+
+.navbar-inverse
+{
+    border: 0px;
+}
+
+.navbar-inverse .navbar-brand
+{
+    color: white;
+}
+
+.navbar-inverse .navbar-brand:hover
+{
+    background: linear-gradient(#15db3d, gray);
+}
+
+.navbar-inverse .navbar-nav > li > a
+{
+    color: white;
+    height: 55px;
+    line-height: 30px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover
+{
+    background: linear-gradient(#15db3d, gray);
+}
+
+
+
+/*Milestone Buttons*/
+
+.buttonSize
+{
+    height: 35px;
+    width: 112px;
+}
+
+.wrongButton
+{
+    background: #d40000;
+    border: solid #ff0000 2px;
+}
+
+.wrongButton:hover
+{
+    background: #c70035;
+    background-image: linear-gradient(to bottom, #c70035, #ff0000);
+}
+
+/*Colors*/
+
+.red
+{
+    color: red;
+}
+
+.orange
+{
+    color: #EEB523;
+}
+
+.boldIt
+{
+    font-weight: bold;
+    font-size: 19px;
+}
+
+
+/*Choose File*/
+
+.ChooseFile
+{
+    padding: 5px;
+}
+
+
+/*Pushit*/
+
+.push
+{
+    margin-bottom: 7px;
+    margin-top: 10px;
+}
+
+/*glyphicon*/
+
+.glyphicon-btn-primary
+{
+    background: #11ba3e;
+    background-image: linear-gradient(to bottom, #11ba3e, #15db3d);
+    border-radius: 9px;
+    text-shadow: 1px 1px 3px #666666;
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    border: solid #1eb31e 2px;
+    text-decoration: none;
+}
+
+.glyphicon-btn-danger
+{
+    background: #d93434;
+    background-image: linear-gradient(to bottom, #d93434, #780000);
+    border: solid #b50000 2px;
+    border-radius: 9px;
+    text-shadow: 1px 1px 3px #666666;
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    border: solid #1eb31e 2px;
+    text-decoration: none;
+}

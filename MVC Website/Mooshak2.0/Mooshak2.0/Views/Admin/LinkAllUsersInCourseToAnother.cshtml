@@ -1,0 +1,78 @@
+﻿@model Mooshak2._0.Models.ViewModels.AdminHomeViewModel
+@{
+    ViewBag.Title = "LinkAllUsersInCourseToAnother";
+}
+
+@Html.Partial("AdminMain")
+
+<div class="col-sm-8 col-md-10 middle">
+    <div class="container">
+        <h2> Link Users in @Model.CourseName to another course </h2>
+        <br />
+        @*@using (Html.BeginForm("LinkAllUsersInCourseToAnother", "Admin", FormMethod.Get))
+        {
+            <label for="SearchString">Search</label>
+            @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        }*@
+        
+        @using (Html.BeginForm("LinkAllUsersInCourseToAnother", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form", }))
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-6">Course Name</th>
+                        <th class="col-md-6">Link to Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Courses.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.Courses[i].Name</td>
+                            <td>
+                                @Html.HiddenFor(m => m.Courses[i].Name)
+                                @Html.HiddenFor(m => m.Courses[i].ID)
+                                @Html.CheckBoxFor(m => m.Courses[i].IsSelected)
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">Select users to link</th>
+                    </tr>
+                    <tr>
+                        <th class="col-md-6">Username</th>
+                        <th class="col-md-6"><input type="checkbox" id="SelectAllCheckbox" /> Select all</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (var i = 0; i < Model.Users.Count(); i++)
+                    {
+                        <tr>
+                            <td>@Model.Users[i].UserName</td>
+                            <td>
+                                @Html.HiddenFor(m => m.Users[i].UserName)
+                                @Html.HiddenFor(m => m.Users[i].ID)
+                                @Html.CheckBoxFor(m => m.Users[i].IsSelected, new { @class= "SelectCheckbox" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
