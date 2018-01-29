@@ -1,0 +1,12 @@
+LOG 1488044438593 [L9]: <ERR> (in GamePlayer) Got start message while already busy playing a game: ignoring.
+LOG 1488044441779 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441794 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441809 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441825 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441840 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441855 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044441896 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044442908 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044443922 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044444925 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044445938 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.

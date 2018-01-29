@@ -1,0 +1,5 @@
+LOG 1488044364854 [L9]: <ERR> (in GamePlayer) Got start message while already busy playing a game: ignoring.
+LOG 1488044364869 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044364886 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044375886 [L9]: <ERR> (in GamePlayer) Got play message not intended for current game: ignoring.
+LOG 1488044379921 [L9]: <ERR> (in GamePlayer) Got abort message not intended for current game: ignoring.

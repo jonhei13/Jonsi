@@ -1,0 +1,4 @@
+LOG 1488026261875 [L0]: [Sent at 1488026261875] aborted
+LOG 1488026261888 [L0]: [Received at 1488026261888] ( ABORT kiosk.breakthrough_3x5-1488026261868 )
+LOG 1488026261897 [L9]: <ERR> Got abort message not intended for current game: ignoring.
+LOG 1488026261903 [L0]: [Sent at 1488026261903] busy
