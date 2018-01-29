@@ -1,4 +1,4 @@
-# Jon Personal Projects and schoolwork
+# Jon's Personal Projects and schoolwork
 
 ## Java Projects
 
